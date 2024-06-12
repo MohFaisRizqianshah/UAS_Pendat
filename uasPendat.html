@@ -493,7 +493,7 @@ Kualitas Daging: Ada perbedaan kualitas daging antara abalone jantan dan betina,
 </section>
 <section id="apa-itu-kerang-abalone">
 <h2>Apa itu Kerang Abalone<a class="headerlink" href="#apa-itu-kerang-abalone" title="Link to this heading">#</a></h2>
-<img src="abalone.jpg" width="" align="" /><p>Kerang Abalone adalah sejenis moluska laut yang memiliki cangkang berbentuk telinga yang besar dan tebal. Mereka dapat ditemukan di perairan laut di seluruh dunia, terutama di kawasan yang beriklim dingin hingga sedang. Abalone dikenal karena cangkangnya yang indah dan dagingnya yang lezat, sehingga sering diambil sebagai bahan makanan dalam banyak budaya, terutama di Asia dan Amerika.</p>
+<img src="_images/abalone.jpg" width="" align="" /><p>Kerang Abalone adalah sejenis moluska laut yang memiliki cangkang berbentuk telinga yang besar dan tebal. Mereka dapat ditemukan di perairan laut di seluruh dunia, terutama di kawasan yang beriklim dingin hingga sedang. Abalone dikenal karena cangkangnya yang indah dan dagingnya yang lezat, sehingga sering diambil sebagai bahan makanan dalam banyak budaya, terutama di Asia dan Amerika.</p>
 <p>Berikut adalah beberapa poin penjelasan merinci tentang kerang Abalone:</p>
 <ol class="arabic simple">
 <li><p>Ciri Fisik:</p>
@@ -614,7 +614,7 @@ Kualitas Daging: Ada perbedaan kualitas daging antara abalone jantan dan betina,
 <section id="collecting-data-mengumpulkan-data">
 <h2>Collecting Data (Mengumpulkan data)<a class="headerlink" href="#collecting-data-mengumpulkan-data" title="Link to this heading">#</a></h2>
 <p>seperti yang kita ketahui langkah yang paling krusial dalam mengamati data,kita perlu mendapatkan data terlebih dahulu,kami mengambil data dari ucidataset untuk mengambil data dari kerang abalone</p>
-<img src="image-20240612-142518.png" width="" align="" /><div class="cell docutils container">
+<img src="_images/repo_abalone.png" width="" align="" /><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ucimlrepo</span> <span class="kn">import</span> <span class="n">fetch_ucirepo</span> 
   
@@ -1493,8 +1493,8 @@ weighted avg       0.50      0.51      0.51       836
 <section id="perhitungan-manual-menggunakan-excel">
 <h2>Perhitungan Manual Menggunakan Excel<a class="headerlink" href="#perhitungan-manual-menggunakan-excel" title="Link to this heading">#</a></h2>
 <p>Dari proses memahami data terdapat data outlier. Sehingga akan kita lakukan penghapusan data outlier untuk meningkatkan akurasi data. Untuk mencari data outlier, kita cari terlebih dahulu mean dan std nya</p>
-<img src="image-20240501-223324.png" width="" align="" /><p>setelah itu kita menghitung nilai standarnya dan nilai absolutenya. Dan untuk mengecek apakah data tersebut termasuk outlier atau tidak menggunakan rumus =IF(nilai_absolute&gt;3,”OUTLIER”,”TIDAK”)</p>
-<img src="image-20240501-223408.png" width="" align="" /><p>jika data tersebut outlier maka dilakukan penghapusan.</p>
+<img src="_images/mean_std_knn.png" width="" align="" /><p>setelah itu kita menghitung nilai standarnya dan nilai absolutenya. Dan untuk mengecek apakah data tersebut termasuk outlier atau tidak menggunakan rumus =IF(nilai_absolute&gt;3,”OUTLIER”,”TIDAK”)</p>
+<img src="_images/hitung_knn.png" width="" align="" /><p>jika data tersebut outlier maka dilakukan penghapusan.</p>
 <p>setelah mencari data outlier, kemudian kita lakukan perhitungan akurasinya.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1701,23 +1701,23 @@ weighted avg       0.49      0.48      0.49       809
 <p>dilakukan perhitungan probabilitas dari masing-masing kelas sesuai dengan jumlah data train pada kelas tersebut kemudian dibagi dengan banyaknya total data train</p>
 <p>P(a) : probabilitas
 n(a) : banyaknya record data train pada suatu kelas</p>
-<img src="image-20240501-214054.png" width="" align="" /></section>
+<img src="_images/data_train.png" width="" align="" /></section>
 <section id="menghitung-mean-dan-standard-deviasi">
 <h3>Menghitung mean dan standard deviasi<a class="headerlink" href="#menghitung-mean-dan-standard-deviasi" title="Link to this heading">#</a></h3>
 <p>menghitung mean dan standart devisiasi dari masing-masing fitur pada setiap kelas di data train.
 untuk rumus di excel sebagai berikut :</p>
 <p>mean : =AVERAGE()
 standard devisiasi : =STDEV.P()</p>
-<img src="image-20240501-214422.png" width="" align="" /><img src="image-20240501-214458.png" width="" align="" /><img src="image-20240501-214517.png" width="" align="" /></section>
+<img src="_images/mean_std_F.png" width="" align="" /><img src="_images/mean_std_I.png" width="" align="" /><img src="_images/mean_std_M.png" width="" align="" /></section>
 <section id="menentukan-inputan-x">
 <h3>Menentukan Inputan (X)<a class="headerlink" href="#menentukan-inputan-x" title="Link to this heading">#</a></h3>
 <p>Dapatkan inputan untuk tiap fitur disetiap kelas secara acak</p>
-<img src="image-20240502-093545.png" width="" align="" /></section>
+<img src="_images/inputX.png" width="" align="" /></section>
 <section id="menghitung-distribusi-gaussian">
 <h3>Menghitung distribusi gaussian<a class="headerlink" href="#menghitung-distribusi-gaussian" title="Link to this heading">#</a></h3>
 <p>Setelah didapati mean dan standart devisiasi dari setiap fitur pada setiap kelas, dan juga sudah menentukan inputan. maka langkah selanjutnya adalah memasukkan ke dalam rumus distribusi gaussian setiap fitur disetiap kelasnya.</p>
 <p>rumusnya sebagai berikut :</p>
-<img src="image-20240516-094845.png" width="" align="" /><img src="image-20240501-215002.png" width="" align="" /><img src="image-20240501-215029.png" width="" align="" /><img src="image-20240501-215051.png" width="" align="" /></section>
+<img src="_images/rumusGNB.png" width="" align="" /><img src="_images/hasilF.png" width="" align="" /><img src="_images/hasilI.png" width="" align="" /><img src="_images/hasilM.png" width="" align="" /></section>
 <section id="menghitung-posteriori">
 <h3>Menghitung posteriori<a class="headerlink" href="#menghitung-posteriori" title="Link to this heading">#</a></h3>
 <p>Setelah didapat semua hasil dari distribusi gaussian, langkah selanjutnya adalah menentukan posteriori-nya.</p>
@@ -1728,7 +1728,7 @@ standard devisiasi : =STDEV.P()</p>
 <ul class="simple">
 <li><p>P(a) : probabilitas setiap kelas</p></li>
 </ul>
-<img src="image-20240501-215230.png" width="" align="" /></section>
+<img src="_images/posteriori_abalone.png" width="" align="" /></section>
 <section id="menentukan-maximum-posteriori">
 <h3>Menentukan maximum posteriori<a class="headerlink" href="#menentukan-maximum-posteriori" title="Link to this heading">#</a></h3>
 <p>Setelah mendapati nilai postriori maka kita dapat menentukan nilai maximum pada posteriori yaitu pada kelas I dengan nilai : 1,08453E-11</p>
@@ -1808,7 +1808,7 @@ standard devisiasi : =STDEV.P()</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="stacking-classifier">
 <h1>Stacking Classifier<a class="headerlink" href="#stacking-classifier" title="Link to this heading">#</a></h1>
-<img src="image-20240612-142804.png" width="" align="" /><p>Stacking melibatkan penggabungan beberapa model berbeda dan menggunakan model yang lebih tinggi (meta-model) untuk menggabungkan hasil prediksi dari model-model tersebut. Stacking memungkinkan untuk memanfaatkan kekuatan berbagai jenis model.</p>
+<img src="_images/stack_class.png" width="" align="" /><p>Stacking melibatkan penggabungan beberapa model berbeda dan menggunakan model yang lebih tinggi (meta-model) untuk menggabungkan hasil prediksi dari model-model tersebut. Stacking memungkinkan untuk memanfaatkan kekuatan berbagai jenis model.</p>
 <p>Mencoba menggunakan stacking classifier menggunakan KNN dan meta-classifier menggunakan GNB</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2263,7 +2263,7 @@ Akurasi : 100.00%
 <section id="bagging-bootstrap-aggregating">
 <h2>Bagging (Bootstrap Aggregating)<a class="headerlink" href="#bagging-bootstrap-aggregating" title="Link to this heading">#</a></h2>
 <p>Bagging adalah teknik yang melibatkan pembuatan beberapa subset dari data pelatihan dengan penggantian (metode bootstrap), kemudian melatih model yang berbeda pada setiap subset tersebut. Setelah itu, hasil prediksi dari masing-masing model ini digabungkan; untuk tugas regresi, hasil prediksi diambil rata-ratanya, sedangkan untuk tugas klasifikasi, hasil prediksi diambil berdasarkan mayoritas suara. Metode ini membantu mengurangi variabilitas dan meningkatkan akurasi prediksi.</p>
-<img src="image-20240612-143258.png" width="" align="" /><div class="cell docutils container">
+<img src="_images/bagging.png" width="" align="" /><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># Added</span>
