@@ -1,0 +1,2530 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>STUDI KASUS DATA FRAME ABALONE &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'uasPendat';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
+    <link rel="prev" title="Content with notebooks" href="notebooks.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">STUDI KASUS DATA FRAME ABALONE</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FuasPendat.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/uasPendat.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>STUDI KASUS DATA FRAME ABALONE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">STUDI KASUS DATA FRAME ABALONE</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-dari-studi-kasus">Tujuan dari studi kasus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-kerang-abalone">Apa itu Kerang Abalone</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-data-mengumpulkan-data">Collecting Data (Mengumpulkan data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-tiap-fitur-dalam-dataset-abalone">Tipe data tiap fitur dalam dataset Abalone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-kualitas-data">Identifikasi kualitas data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-missing-values">Identifikasi Missing Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-outlier">Identifikasi Outlier</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preproccessing">Preproccessing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-setiap-fitur-pada-dataset-abalone">Penjelasan setiap fitur pada dataset Abalone</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi">Klasifikasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jumlah-data-pada-dataset-abalone">Jumlah data pada dataset Abalone</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#knn">KNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dataset-dari-database">Mengambil dataset dari database</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-akurasi-data-menggunakan-metode-knn">Mencari akurasi data menggunakan metode KNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-menggunakan-excel">Perhitungan Manual Menggunakan Excel</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagi-data-train-80-dan-data-test-20">Bagi data train 80% dan data test 20%</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-train">============================= Data Train =============================</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-test">============================= Data Test =============================</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Perhitungan manual menggunakan Excel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-probabilitas-pada-data-train">Menghitung probabilitas pada data train</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-mean-dan-standard-deviasi">Menghitung mean dan standard deviasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-inputan-x">Menentukan Inputan (X)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-distribusi-gaussian">Menghitung distribusi gaussian</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-posteriori">Menghitung posteriori</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-maximum-posteriori">Menentukan maximum posteriori</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-menggunakan-scikit-learn">Perhitungan menggunakan Scikit Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-akurasi-data">Menghitung Akurasi data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-posteriori-maksimal">Menghitung Posteriori maksimal</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-classifier">Stacking Classifier</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-menggunakan-knn">Classifier Menggunakan KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-knn-dengan-n-neighbor-3">Model KNN dengan n_neighbor=3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-knn-dengan-n-neighbor-5">Model KNN dengan n_neighbor=5</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meta-classifier-menggunakan-gaussian-naive-bayes">Meta-Classifier Menggunakan Gaussian Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memakai-data-baru">Memakai Data Baru</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging-bootstrap-aggregating">Bagging (Bootstrap Aggregating)</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="studi-kasus-data-frame-abalone">
+<h1>STUDI KASUS DATA FRAME ABALONE<a class="headerlink" href="#studi-kasus-data-frame-abalone" title="Link to this heading">#</a></h1>
+<section id="tujuan-dari-studi-kasus">
+<h2>Tujuan dari studi kasus<a class="headerlink" href="#tujuan-dari-studi-kasus" title="Link to this heading">#</a></h2>
+<p>Tujuan dari menganalisis dataset abalone ini adalah untuk menentukan jenis kelamin abalone berdasarkan dari sex (kelamin), karena dalam  data yang akan kami analisis memiliki beberapa fitur yang cukup mencakupi dari data abalone. Seperti ukuran berat dan lain lain juga berdasarkan dari setiap data  kerang abalon yang kita akan analisis Kerang abalone juga memiliki manfaat jika dikonsumsi oleh masyarakat seperti dapat memberikan beberapa manfaat kesehatan, meskipun perlu diingat bahwa manfaat ini dapat bervariasi tergantung pada bagaimana abalone dimasak dan disajikan.</p>
+<p>dalam sisi bisnis kerang abalone</p>
+<p>Kualitas dan Nilai Ekonomi
+Kualitas Daging: Ada perbedaan kualitas daging antara abalone jantan dan betina, yang dapat mempengaruhi harga jual. Misalnya, daging betina mungkin lebih disukai di pasar tertentu karena tekstur atau rasa yang khas.</p>
+<p>Produk Tertentu: Beberapa produk mungkin lebih baik dibuat dari jantan atau betina. Misalnya, abalone betina mungkin lebih diinginkan untuk produk tertentu karena ukurannya atau kandungan gizi</p>
+<p>Kontrol Populasi: Mengelola rasio jenis kelamin dapat membantu dalam mengendalikan populasi abalone di lingkungan penangkaran, sehingga dapat memaksimalkan produksi</p>
+<p>Berikut adalah beberapa manfaat potensial dari mengonsumsi abalone:</p>
+<ul class="simple">
+<li><p>Sumber protein: Abalone adalah sumber protein hewani yang baik. Protein diperlukan oleh tubuh untuk membangun dan memperbaiki jaringan, serta untuk menjaga fungsi tubuh yang sehat.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Kandungan mineral: Abalone mengandung berbagai mineral penting seperti zat besi, selenium, magnesium, dan fosfor. Mineral-mineral ini penting untuk kesehatan tulang, fungsi otot, sistem kekebalan tubuh, dan banyak proses biologis lainnya.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Asam lemak omega-3: Beberapa spesies abalone mengandung asam lemak omega-3, yang penting untuk kesehatan jantung dan otak. Omega-3 memiliki sifat antiinflamasi dan dapat membantu mengurangi risiko penyakit jantung.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Kandungan vitamin: Abalone juga mengandung beberapa vitamin penting seperti vitamin E, vitamin A, dan vitamin B12. Vitamin-vitamin ini diperlukan untuk fungsi tubuh yang optimal, termasuk kesehatan mata, kulit, dan sistem saraf.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Kandungan kolagen: Abalone mengandung kolagen, protein struktural yang penting untuk kesehatan kulit, rambut, dan kuku. Kolagen juga dapat membantu menjaga kesehatan sendi dan tulang.</p></li>
+</ul>
+<p>Namun, kerang abalone juga dapat mengandung kolesterol tinggi dan kadar garam yang signifikan, tergantung pada cara memasaknya.</p>
+<p>dari penjelasan tersebut dapat disimpulkan bahwa kerang abalone ini layak dianalisis untuk dipasarkan kepada masyarakat, karena selain memiliki nilai bisnis kerang abalone juga memiliki manfaat untuk kesehatan dan perkembangan tubuh.</p>
+</section>
+<section id="apa-itu-kerang-abalone">
+<h2>Apa itu Kerang Abalone<a class="headerlink" href="#apa-itu-kerang-abalone" title="Link to this heading">#</a></h2>
+<img src="abalone.jpg" width="" align="" /><p>Kerang Abalone adalah sejenis moluska laut yang memiliki cangkang berbentuk telinga yang besar dan tebal. Mereka dapat ditemukan di perairan laut di seluruh dunia, terutama di kawasan yang beriklim dingin hingga sedang. Abalone dikenal karena cangkangnya yang indah dan dagingnya yang lezat, sehingga sering diambil sebagai bahan makanan dalam banyak budaya, terutama di Asia dan Amerika.</p>
+<p>Berikut adalah beberapa poin penjelasan merinci tentang kerang Abalone:</p>
+<ol class="arabic simple">
+<li><p>Ciri Fisik:</p>
+<ul class="simple">
+<li><p>Cangkang Abalone memiliki bentuk telinga yang unik dan bervariasi dalam warna, mulai dari hijau, biru, merah muda, hingga putih.</p></li>
+<li><p>Daging Abalone biasanya memiliki warna putih kekuningan dan tekstur yang kenyal.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Habitat:</p>
+<ul class="simple">
+<li><p>Abalone biasanya hidup di dasar laut yang berbatu di dekat pantai.</p></li>
+<li><p>Mereka sering ditemukan di perairan yang memiliki suhu sejuk hingga sedang.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Makanan:</p>
+<ul class="simple">
+<li><p>Abalone adalah hewan pemakan alga dan sering mengonsumsi berbagai jenis alga laut.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><p>Nilai Ekonomis:</p>
+<ul class="simple">
+<li><p>Abalone memiliki nilai ekonomis yang tinggi karena dagingnya yang lezat dan cangkangnya yang indah.</p></li>
+<li><p>Mereka sering dibudidayakan secara komersial untuk tujuan konsumsi manusia.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p>Budidaya:</p>
+<ul class="simple">
+<li><p>Proses budidaya Abalone melibatkan penetasan larva Abalone, pemeliharaan dalam kolam pembesaran, dan pemeliharaan lingkungan yang sesuai untuk pertumbuhan yang optimal.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="6">
+<li><p>Perlindungan:</p>
+<ul class="simple">
+<li><p>Beberapa spesies Abalone telah menjadi terancam punah akibat overfishing dan kerusakan habitat laut.</p></li>
+<li><p>Upaya konservasi telah dilakukan untuk melindungi spesies Abalone dan memastikan kelangsungan hidupnya di alam liar.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="7">
+<li><p>Kegunaan Budaya:</p>
+<ul class="simple">
+<li><p>Abalone memiliki nilai budaya yang tinggi dalam beberapa masyarakat, sering kali dianggap sebagai makanan yang istimewa dan digunakan dalam ritual atau upacara tertentu.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="8">
+<li><p>Manfaat Kesehatan:</p>
+<ul class="simple">
+<li><p>Beberapa penelitian menunjukkan bahwa daging Abalone mengandung nutrisi penting seperti protein, mineral, dan vitamin, serta senyawa bioaktif yang mungkin memiliki manfaat kesehatan.</p></li>
+</ul>
+</li>
+</ol>
+<p>Kerang Abalone adalah salah satu spesies laut yang menarik dan penting secara ekologis serta ekonomis. Perhatian terhadap pelestarian dan pengelolaan yang berkelanjutan sangat penting untuk menjaga keberlangsungan hidup mereka di masa depan.</p>
+<p>UNTUK DAPAT MENGETAHUI JENIS KELAMIN DARI SETIAP KERANG KITA MEMBUTUHKAN 7 CIRI YANG DI AMATI, KITA PERLU MENGETAHUI</p>
+<ol class="arabic simple">
+<li><p>Length (Panjang):</p>
+<ul class="simple">
+<li><p>Ini adalah panjang terbesar dari abalone, diukur dalam mm (milimeter).</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Diameter:</p>
+<ul class="simple">
+<li><p>Diameter terbesar dari abalone, diukur dalam mm (milimeter).  - NOTED Diameter adalah garis lurus yang menghubungkan dua titik pada lengkungan lingkaran dan melalui titik pusat. Garis AB merupakan diameter lingkaran.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Height (Tinggi):</p>
+<ul class="simple">
+<li><p>Tinggi abalone, diukur dalam mm (milimeter).</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><p>WholeWeight (Berat Keseluruhan):</p>
+<ul class="simple">
+<li><p>Ini adalah berat keseluruhan dari abalone, diukur dalam gram.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p>ShuckedWeight (Berat Daging yang Terlepas):</p>
+<ul class="simple">
+<li><p>Ini adalah berat daging yang terlepas dari kerang abalone, diukur dalam gram.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="6">
+<li><p>VisceraWeight (Berat Jeroan):</p>
+<ul class="simple">
+<li><p>Ini adalah berat jeroan dari abalone, diukur dalam gram.</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="7">
+<li><p>ShellWeight (Berat Kerang):</p>
+<ul class="simple">
+<li><p>Ini adalah berat kerang dari abalone, diukur dalam gram.</p></li>
+</ul>
+</li>
+</ol>
+<p>Dengan demikian, setiap kolom pada dataset Abalone memberikan informasi tentang berbagai atribut fisik dari abalone, termasuk ukuran, berat, dan jenis kelaminnya.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
+<h1>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
+<section id="collecting-data-mengumpulkan-data">
+<h2>Collecting Data (Mengumpulkan data)<a class="headerlink" href="#collecting-data-mengumpulkan-data" title="Link to this heading">#</a></h2>
+<p>seperti yang kita ketahui langkah yang paling krusial dalam mengamati data,kita perlu mendapatkan data terlebih dahulu,kami mengambil data dari ucidataset untuk mengambil data dari kerang abalone</p>
+<img src="image-20240612-142518.png" width="" align="" /><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ucimlrepo</span> <span class="kn">import</span> <span class="n">fetch_ucirepo</span> 
+  
+<span class="c1"># fetch dataset </span>
+<span class="n">abalone</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+  
+<span class="c1"># data (as pandas dataframes) </span>
+<span class="n">df_abalone</span> <span class="o">=</span> <span class="n">abalone</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span> 
+
+<span class="c1">#variable features</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_abalone</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-1-4f4030b74522&gt;</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">ucimlrepo</span> <span class="kn">import</span> <span class="n">fetch_ucirepo</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># fetch dataset</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">abalone</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;ucimlrepo&#39;
+
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NOTE</span>: If your import is failing due to a missing package, you can
+<span class="n">manually</span> <span class="n">install</span> <span class="n">dependencies</span> <span class="n">using</span> <span class="n">either</span> <span class="o">!</span>pip<span class="w"> </span>or<span class="w"> </span>!apt.
+
+<span class="n">To</span> <span class="n">view</span> <span class="n">examples</span> <span class="n">of</span> <span class="n">installing</span> <span class="n">some</span> <span class="n">common</span> <span class="n">dependencies</span><span class="p">,</span> <span class="n">click</span> <span class="n">the</span>
+<span class="s2">&quot;Open Examples&quot;</span> <span class="n">button</span> <span class="n">below</span><span class="o">.</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>di sini kami mengambil dataset Abalon untuk dianalisis dan diidentifikasi setiap kerangnya berdasarkan fitur-fitur fisiknya. Dalam studi ini, kita dapat mengambil dataset yang tersedia dari UCI Machine Learning Repository yang mencakup berbagai atribut seperti diameter, tinggi, berat daging, dll., serta label kelas yang mewakili umur kerang.</p>
+<section id="visualisasi-data">
+<h3>Visualisasi Data<a class="headerlink" href="#visualisasi-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">df_abalone</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/bdaecc433079980f8a8b41cb11f0c222018b82ed14eae29de386485cf78d642e.png"><img alt="_images/bdaecc433079980f8a8b41cb11f0c222018b82ed14eae29de386485cf78d642e.png" src="_images/bdaecc433079980f8a8b41cb11f0c222018b82ed14eae29de386485cf78d642e.png" style="width: 839px; height: 836px;" /></a>
+</div>
+</div>
+<p>fungsi untuk Memberikan gambaran awal tentang karakteristik data di setiap kolom.
+Anda dapat melihat apakah ada data yang perlu di-transformasi atau dibersihkan lebih lanjut sebelum analisis lebih lanjut.</p>
+</section>
+</section>
+<section id="tipe-data-tiap-fitur-dalam-dataset-abalone">
+<h2>Tipe data tiap fitur dalam dataset Abalone<a class="headerlink" href="#tipe-data-tiap-fitur-dalam-dataset-abalone" title="Link to this heading">#</a></h2>
+<p>Konsep Tipe Data Numerik</p>
+<p>Atribut Numerik
+Atribut numerik bersifat kuantitatif dan dapat diukur dalam nilai integer atau real. Atribut ini bisa dikategorikan menjadi dua jenis: interval-scaled dan ratio-scaled.</p>
+<p>Atribut Interval-Scaled
+Atribut interval-scaled diukur pada skala dengan unit yang sama, memiliki urutan, dan dapat bernilai positif, nol, atau negatif. Atribut ini memungkinkan kita untuk membandingkan dan mengukur perbedaan antara nilai-nilai.</p>
+<ul class="simple">
+<li><p>Contoh: Suhu dalam skala Celsius atau Fahrenheit, dan tanggal kalender.</p></li>
+<li><p>Catatan: Tidak memiliki titik nol yang sebenarnya sehingga perbandingan rasio tidak dapat dilakukan (misalnya, tidak bisa mengatakan 10°C dua kali lebih panas dari 5°C).</p></li>
+</ul>
+<p>Atribut Ratio-Scaled
+Atribut ratio-scaled memiliki titik nol yang sebenarnya, memungkinkan nilai dinyatakan sebagai kelipatan dari nilai lainnya. Nilai ini juga diurutkan dan dapat dihitung perbedaannya.</p>
+<p>-Contoh: Suhu dalam skala Kelvin, tahun pengalaman kerja, jumlah kata dalam dokumen, berat, tinggi, koordinat lintang dan bujur, dan jumlah uang.</p>
+<p>untuk menentukan data dari sex (kelamin) kita memerlukan fitur yang meliputi sebagai berikut</p>
+<p>Fitur ‘Length’ memiliki tipe data: real (numerik)
+Fitur ‘Diameter’ memiliki tipe data: real (numerik)
+Fitur ‘Height’ memiliki tipe data: real (numerik)
+Fitur ‘Whole_weight’ memiliki tipe data: real (numerik)
+Fitur ‘Shucked_weight’ memiliki tipe data: real (numerik)
+Fitur ‘Viscera_weight’ memiliki tipe data: real (numerik)
+Fitur ‘Shell_weight’ memiliki tipe data: real (numerik)</p>
+</section>
+<section id="eksplorasi-data">
+<h2>Eksplorasi Data<a class="headerlink" href="#eksplorasi-data" title="Link to this heading">#</a></h2>
+<p>“Exploratory Data Analysis (EDA) adalah proses penting dalam analisis data yang bertujuan untuk memahami struktur, karakteristik, dan pola dalam data. Langkah-langkah EDA meliputi memuat dan memeriksa data awal, menghitung statistik deskriptif, mengidentifikasi missing values dan data duplikat</p>
+</section>
+<section id="identifikasi-kualitas-data">
+<h2>Identifikasi kualitas data<a class="headerlink" href="#identifikasi-kualitas-data" title="Link to this heading">#</a></h2>
+<section id="identifikasi-missing-values">
+<h3>Identifikasi Missing Values<a class="headerlink" href="#identifikasi-missing-values" title="Link to this heading">#</a></h3>
+<p>Missing value (nilai yang hilang) merujuk pada keadaan di mana sebuah data tidak memiliki nilai untuk satu atau beberapa variabel dalam suatu observasi atau catatan. Hal ini bisa terjadi karena berbagai alasan, seperti kesalahan pengukuran, kegagalan sensor, atau keengganan responden dalam menyediakan informasi.</p>
+<p>Ketika nilai dalam data hilang, hal ini dapat mempengaruhi keakuratan analisis statistik dan model prediktif. Oleh karena itu, penanganan nilai yang hilang menjadi penting dalam analisis data. Beberapa pendekatan untuk menangani nilai yang hilang termasuk:</p>
+<p>mengecek missing value yang terdapat pada dataset :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Memeriksa apakah ada nilai yang hilang dalam setiap kolom</span>
+<span class="n">missing_values</span> <span class="o">=</span> <span class="n">df_abalone</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan jumlah nilai yang hilang untuk setiap kolom</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah nilai yang hilang untuk setiap kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_values</span><span class="p">)</span>
+
+<span class="c1"># Mengecek apakah ada nilai yang hilang</span>
+<span class="k">if</span> <span class="n">missing_values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tidak ada missing value.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Terdapat missing value dalam dataset.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah nilai yang hilang untuk setiap kolom:
+Sex               0
+Length            0
+Diameter          0
+Height            0
+Whole_weight      0
+Shucked_weight    0
+Viscera_weight    0
+Shell_weight      0
+dtype: int64
+Tidak ada missing value.
+</pre></div>
+</div>
+</div>
+</div>
+<p>dari penjelasan di atas sepertidfvg yang kita ketahui bahwa data tersebut tidak ada mising value di dalamnya</p>
+</section>
+<section id="identifikasi-outlier">
+<h3>Identifikasi Outlier<a class="headerlink" href="#identifikasi-outlier" title="Link to this heading">#</a></h3>
+<p>outlier merupakan nilai yang jauh dari nilai-nilai yang umum atau pola yang ada dalam data. Kehadiran outlier dapat mempengaruhi analisis statistik dan machine learning karena dapat menyebabkan estimasi yang tidak akurat atau bias dalam model yang dibangun.</p>
+<p>Karakteristik Outlier:</p>
+<ol class="arabic simple">
+<li><p>Outlier merupakan nilai yang berada jauh dari sebagian besar data dalam dataset.</p></li>
+<li><p>Outlier tidak mengikuti pola atau distribusi umum dari sebagian besar data.</p></li>
+<li><p>Outlier bisa berupa nilai yang sangat besar (nilai tinggi) atau sangat kecil (nilai rendah) dibandingkan dengan nilai-nilai lain dalam dataset.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Fungsi untuk mencari outlier menggunakan pendekatan IQR</span>
+<span class="k">def</span> <span class="nf">find_outliers_iqr</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># Menghitung kuartil pertama (Q1) dan kuartil ketiga (Q3)</span>
+    <span class="n">Q1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">Q3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+    
+    <span class="c1"># Menghitung jangkauan interkuartil (IQR)</span>
+    <span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+    
+    <span class="c1"># Menentukan batas atas dan batas bawah untuk outlier</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+    
+    <span class="c1"># Mengidentifikasi outlier</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">outliers</span>
+
+<span class="c1"># Mencari outlier dalam dataset untuk setiap fitur numerik</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df_abalone</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">find_outliers_iqr</span><span class="p">(</span><span class="n">df_abalone</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="n">num_outliers</span> <span class="o">=</span> <span class="n">outliers</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># Menghitung jumlah outlier</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Outlier(s) dalam kolom &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39;:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_abalone</span><span class="p">[</span><span class="n">column</span><span class="p">][</span><span class="n">outliers</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total outlier dalam kolom &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">num_outliers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Outlier(s) dalam kolom &#39;Length&#39;:
+148     0.175
+149     0.170
+236     0.075
+237     0.130
+238     0.110
+239     0.160
+305     0.200
+306     0.165
+321     0.190
+465     0.175
+523     0.200
+525     0.175
+526     0.155
+611     0.195
+694     0.165
+696     0.155
+718     0.180
+719     0.150
+720     0.160
+1053    0.185
+1054    0.195
+1055    0.195
+1056    0.200
+1210    0.185
+1429    0.140
+1824    0.185
+1986    0.135
+1987    0.160
+2114    0.130
+2115    0.180
+2169    0.165
+2171    0.190
+2343    0.170
+2371    0.180
+2380    0.175
+2381    0.155
+2458    0.200
+2711    0.190
+3141    0.180
+3143    0.200
+3190    0.200
+3318    0.165
+3380    0.190
+3472    0.165
+3600    0.175
+3837    0.170
+3899    0.140
+3902    0.160
+3994    0.185
+Name: Length, dtype: float64
+Total outlier dalam kolom &#39;Length&#39;: 49
+
+Outlier(s) dalam kolom &#39;Diameter&#39;:
+43      0.150
+44      0.150
+148     0.130
+149     0.130
+236     0.055
+237     0.100
+238     0.090
+239     0.120
+305     0.145
+306     0.120
+321     0.145
+465     0.125
+520     0.150
+523     0.140
+525     0.125
+526     0.110
+611     0.145
+694     0.110
+696     0.105
+718     0.125
+719     0.100
+720     0.110
+892     0.140
+898     0.120
+1053    0.130
+1054    0.150
+1055    0.135
+1429    0.105
+1824    0.135
+1986    0.130
+1987    0.110
+1988    0.150
+2114    0.095
+2115    0.130
+2169    0.115
+2171    0.130
+2172    0.150
+2343    0.125
+2371    0.125
+2380    0.135
+2381    0.115
+2458    0.145
+2545    0.150
+2711    0.140
+2712    0.150
+3141    0.135
+3143    0.150
+3190    0.145
+3318    0.125
+3380    0.130
+3472    0.120
+3473    0.150
+3521    0.150
+3600    0.125
+3716    0.130
+3837    0.105
+3899    0.105
+3902    0.120
+3994    0.135
+Name: Diameter, dtype: float64
+Total outlier dalam kolom &#39;Diameter&#39;: 59
+
+Outlier(s) dalam kolom &#39;Height&#39;:
+236     0.010
+237     0.030
+238     0.030
+239     0.035
+306     0.030
+694     0.020
+718     0.035
+719     0.025
+720     0.025
+1174    0.015
+1257    0.000
+1417    0.515
+1428    0.250
+1429    0.035
+1763    0.250
+1987    0.025
+2051    1.130
+2114    0.035
+2169    0.015
+2171    0.030
+2172    0.030
+2179    0.250
+2381    0.025
+2711    0.030
+3190    0.025
+3837    0.035
+3899    0.035
+3902    0.020
+3996    0.000
+Name: Height, dtype: float64
+Total outlier dalam kolom &#39;Height&#39;: 29
+
+Outlier(s) dalam kolom &#39;Whole_weight&#39;:
+165     2.5500
+358     2.4990
+891     2.8255
+1051    2.5550
+1052    2.3020
+1193    2.2730
+1206    2.2360
+1207    2.5050
+1209    2.6570
+1426    2.2500
+1427    2.5085
+1428    2.2550
+1761    2.2205
+1762    2.5155
+1763    2.7795
+2265    2.2260
+2334    2.5260
+2623    2.3810
+2624    2.3980
+2811    2.3305
+2862    2.2355
+2863    2.3235
+3007    2.2305
+3008    2.2635
+3188    2.2695
+3427    2.4925
+3599    2.3330
+3715    2.5480
+3800    2.3810
+3993    2.2385
+Name: Whole_weight, dtype: float64
+Total outlier dalam kolom &#39;Whole_weight&#39;: 30
+
+Outlier(s) dalam kolom &#39;Shucked_weight&#39;:
+165     1.0705
+891     1.1465
+1048    1.0120
+1051    1.1335
+1052    1.0070
+1193    1.0950
+1197    1.0465
+1199    1.0265
+1202    1.0260
+1206    1.1090
+1207    1.1965
+1209    1.4880
+1417    1.1075
+1418    1.0465
+1426    1.1565
+1427    1.2320
+1527    1.0170
+1528    1.3510
+1749    0.9895
+1750    0.9925
+1754    1.1455
+1756    1.0300
+1761    1.0830
+1762    1.1155
+1763    1.3485
+1821    1.0715
+1982    1.0815
+2544    1.0685
+2623    0.9915
+2624    1.1280
+2625    1.0515
+2675    1.0050
+2710    1.0615
+2810    1.1055
+2811    1.2530
+2862    1.1705
+2863    1.1495
+2970    0.9815
+2972    0.9955
+3007    1.2395
+3082    1.0135
+3427    1.1455
+3599    1.2395
+3713    1.2455
+3715    1.1945
+3961    1.1330
+3962    1.0745
+3993    0.9840
+Name: Shucked_weight, dtype: float64
+Total outlier dalam kolom &#39;Shucked_weight&#39;: 48
+
+Outlier(s) dalam kolom &#39;Viscera_weight&#39;:
+170     0.5410
+1048    0.5225
+1052    0.5090
+1204    0.5500
+1206    0.5195
+1207    0.5130
+1209    0.4985
+1422    0.5640
+1427    0.5190
+1750    0.4925
+1757    0.5195
+1759    0.5185
+1762    0.6415
+1763    0.7600
+2334    0.5900
+2623    0.5005
+2624    0.5120
+2709    0.5265
+2710    0.5235
+2810    0.5250
+2811    0.5410
+2863    0.5115
+3427    0.5750
+3628    0.5145
+3715    0.5745
+4148    0.5260
+Name: Viscera_weight, dtype: float64
+Total outlier dalam kolom &#39;Viscera_weight&#39;: 26
+
+Outlier(s) dalam kolom &#39;Shell_weight&#39;:
+81      0.6750
+129     0.7800
+157     0.6350
+163     1.0050
+164     0.8150
+165     0.7250
+166     0.8500
+167     0.6500
+168     0.7600
+277     0.6900
+334     0.7100
+358     0.7000
+891     0.8970
+1193    0.6380
+1207    0.6785
+1428    0.7975
+1761    0.6300
+1762    0.6420
+1823    0.6430
+1985    0.6460
+2090    0.6585
+2108    0.8850
+2157    0.7250
+2161    0.8850
+2208    0.6650
+2274    0.6850
+2368    0.6600
+3008    0.7260
+3148    0.6855
+3149    0.7100
+3151    0.7250
+3188    0.6650
+3715    0.6745
+3928    0.6550
+4145    0.6570
+Name: Shell_weight, dtype: float64
+Total outlier dalam kolom &#39;Shell_weight&#39;: 35
+</pre></div>
+</div>
+</div>
+</div>
+<p>A.Kolom ‘length’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 236: 0.075</p></li>
+<li><p>Baris 305: 0.200</p></li>
+<li><p>Baris 1055: 0.195</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘Length’:</p>
+<ul class="simple">
+<li><p>Terdapat total 49 outlier dalam kolom ‘Length’.</p></li>
+</ul>
+</li>
+</ol>
+<p>B.Kolom ‘Diameter’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 236: 0.055</p></li>
+<li><p>Baris 305: 0.145</p></li>
+<li><p>Baris 1055: 0.135</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘Diameter’:</p>
+<ul class="simple">
+<li><p>Terdapat total 59 outlier dalam kolom ‘Diameter’.</p></li>
+</ul>
+</li>
+</ol>
+<p>C.Kolom ‘Height’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 236: 0.010</p></li>
+<li><p>Baris 1417: 0.515</p></li>
+<li><p>Baris 2051: 1.130</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘Height’:</p>
+<ul class="simple">
+<li><p>Terdapat total 29 outlier dalam kolom ‘Height’.</p></li>
+</ul>
+</li>
+</ol>
+<p>D.Kolom ‘Whole_weight’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 165: 2.5500</p></li>
+<li><p>Baris 891: 2.8255</p></li>
+<li><p>Baris 1051: 2.5550</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘Whole_weight’:</p>
+<ul class="simple">
+<li><p>Terdapat total 30 outlier dalam kolom ‘Whole_weight’.</p></li>
+</ul>
+</li>
+</ol>
+<p>E.Kolom ‘Shucked_weight’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 165: 1.0705</p></li>
+<li><p>Baris 891: 1.1465</p></li>
+<li><p>Baris 1048: 1.0120</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘Shucked_weight’:</p>
+<ul class="simple">
+<li><p>Terdapat total 48 outlier dalam kolom ‘Shucked_weight’.</p></li>
+</ul>
+</li>
+</ol>
+<p>F.Kolom ‘viscera_weight’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 165: 1.0705</p></li>
+<li><p>Baris 891: 1.1465</p></li>
+<li><p>Baris 1048: 1.0120</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘Shucked_weight’:</p>
+<ul class="simple">
+<li><p>Terdapat total 26 outlier dalam kolom ‘Shucked_weight’.</p></li>
+</ul>
+</li>
+</ol>
+<p>G.Kolom ‘viscera_weight’ pada dataset mengandung outlier sebagai berikut:</p>
+<ol class="arabic simple">
+<li><p>Outlier(s) dan Contoh Baris:</p>
+<ul class="simple">
+<li><p>Baris 170: 0,5410</p></li>
+<li><p>Baris 891: 0,5225</p></li>
+<li><p>Baris 1048: 0,5090</p></li>
+</ul>
+</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Total Outlier dalam Kolom ‘viscera_weight’:</p>
+<ul class="simple">
+<li><p>Terdapat total 26 outlier dalam kolom ‘Shucked_weight’.</p></li>
+</ul>
+</li>
+</ol>
+<p>total outlier dari perkolom adalah 276</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="preproccessing">
+<h1>Preproccessing<a class="headerlink" href="#preproccessing" title="Link to this heading">#</a></h1>
+<p>Preprocessing (prapemrosesan) adalah serangkaian langkah atau teknik yang digunakan untuk mempersiapkan data mentah sebelum dianalisis atau dimasukkan ke dalam model pembelajaran mesin. Tujuan utama dari prapemrosesan adalah untuk membersihkan, mengorganisir, dan mengubah data mentah menjadi format yang sesuai untuk analisis atau pemodelan.</p>
+<p>Prapemrosesan data sangat penting dalam analisis data dan pembelajaran mesin karena kualitas dan kebersihan data yang baik dapat berdampak besar pada hasil analisis dan performa model. Dengan melakukan prapemrosesan yang tepat, kita dapat memastikan bahwa data yang digunakan untuk analisis atau pemodelan lebih dapat dipercaya, akurat, dan sesuai dengan tujuan analisis yang diinginkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_abalone</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            Length     Diameter       Height  Whole_weight  Shucked_weight  \
+count  4177.000000  4177.000000  4177.000000   4177.000000     4177.000000   
+mean      0.523992     0.407881     0.139516      0.828742        0.359367   
+std       0.120093     0.099240     0.041827      0.490389        0.221963   
+min       0.075000     0.055000     0.000000      0.002000        0.001000   
+25%       0.450000     0.350000     0.115000      0.441500        0.186000   
+50%       0.545000     0.425000     0.140000      0.799500        0.336000   
+75%       0.615000     0.480000     0.165000      1.153000        0.502000   
+max       0.815000     0.650000     1.130000      2.825500        1.488000   
+
+       Viscera_weight  Shell_weight  
+count     4177.000000   4177.000000  
+mean         0.180594      0.238831  
+std          0.109614      0.139203  
+min          0.000500      0.001500  
+25%          0.093500      0.130000  
+50%          0.171000      0.234000  
+75%          0.253000      0.329000  
+max          0.760000      1.005000  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="penjelasan-setiap-fitur-pada-dataset-abalone">
+<h2>Penjelasan setiap fitur pada dataset Abalone<a class="headerlink" href="#penjelasan-setiap-fitur-pada-dataset-abalone" title="Link to this heading">#</a></h2>
+<p>berikut ini adalah penjelasan setiap fitur pada dataset abalone</p>
+<p>ada 7 fitur dan 1 klasifikasi pada daset tersebut</p>
+<section id="klasifikasi">
+<h3>Klasifikasi<a class="headerlink" href="#klasifikasi" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Sex (Jenis Kelamin):</p>
+<ul class="simple">
+<li><p>Ini adalah kolom yang menunjukkan jenis kelamin dari abalone.</p></li>
+<li><p>Nilai yang mungkin adalah “M” untuk jantan (Male), “F” untuk betina (Female), dan “I” untuk anak-anak (Infant).</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung jumlah data berdasarkan jenis kelamin (Sex)</span>
+<span class="n">male_count</span> <span class="o">=</span> <span class="n">df_abalone</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">female_count</span> <span class="o">=</span> <span class="n">df_abalone</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">infant_count</span> <span class="o">=</span> <span class="n">df_abalone</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan jumlah data berdasarkan jenis kelamin</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Abalone berjenis kelamin M =&quot;</span><span class="p">,</span> <span class="n">male_count</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Abalone berjenis kelamin F =&quot;</span><span class="p">,</span> <span class="n">female_count</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Abalone berjenis kelamin I =&quot;</span><span class="p">,</span> <span class="n">infant_count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Abalone berjenis kelamin M = 1528
+Abalone berjenis kelamin F = 1307
+Abalone berjenis kelamin I = 1342
+</pre></div>
+</div>
+</div>
+</div>
+<p>DARI HASIL DI ATAS DAPAT KITA SIMPULKAN BAHWA</p>
+<p>Abalone berjenis kelamin MALE (JANTAN) = 1528
+Abalone berjenis kelamin FEMALE (BETINA) = 1307
+Abalone berjenis kelamin INFRANT (BAYI) = 1342</p>
+</section>
+<section id="jumlah-data-pada-dataset-abalone">
+<h3>Jumlah data pada dataset Abalone<a class="headerlink" href="#jumlah-data-pada-dataset-abalone" title="Link to this heading">#</a></h3>
+<p>Pada point ini akan menghitung jumlah data yang terdapat dalam dataset Abalone</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung jumlah baris dalam dataset (jumlah data)</span>
+<span class="n">num_data</span> <span class="o">=</span> <span class="n">df_abalone</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Menampilkan jumlah data dalam dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data dalam dataset Abalone:&quot;</span><span class="p">,</span> <span class="n">num_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data dalam dataset Abalone: 4177
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dataset Abalone memiliki 4177 data yang tercatat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Asumsi df_abalone sudah terdefinisi</span>
+<span class="c1"># df_abalone = pd.read_csv(&#39;path_to_your_dataset.csv&#39;) # Jika perlu memuat dataset</span>
+
+<span class="c1"># Menghilangkan kolom &#39;sex&#39;</span>
+<span class="n">abalone</span> <span class="o">=</span> <span class="n">df_abalone</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">])</span>
+
+<span class="c1"># Menghitung rata-rata untuk setiap kolom numerik</span>
+<span class="n">mean_values</span> <span class="o">=</span> <span class="n">abalone</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Menghitung standar deviasi untuk setiap kolom numerik</span>
+<span class="n">std_values</span> <span class="o">=</span> <span class="n">abalone</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rata-rata setiap kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_values</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Standar deviasi setiap kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">std_values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rata-rata setiap kolom:
+Length            0.523992
+Diameter          0.407881
+Height            0.139516
+Whole_weight      0.828742
+Shucked_weight    0.359367
+Viscera_weight    0.180594
+Shell_weight      0.238831
+dtype: float64
+
+Standar deviasi setiap kolom:
+Length            0.120093
+Diameter          0.099240
+Height            0.041827
+Whole_weight      0.490389
+Shucked_weight    0.221963
+Viscera_weight    0.109614
+Shell_weight      0.139203
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="knn">
+<h1>KNN<a class="headerlink" href="#knn" title="Link to this heading">#</a></h1>
+<p>Metode KNN (K-Nearest Neighbors) adalah salah satu algoritma yang digunakan dalam pembelajaran mesin untuk klasifikasi dan regresi. Pendekatan ini termasuk dalam kategori pembelajaran berbasis instansi atau non-parametrik, yang berarti algoritma tidak memerlukan pembentukan model yang kompleks sebelumnya. Sebaliknya, algoritma KNN mengandalkan kumpulan data pelatihan yang telah diberi label untuk membuat prediksi tentang label atau nilai target dari data yang tidak terlihat.</p>
+<p>Cara kerja algoritma KNN adalah dengan mencari sejumlah tetangga terdekat (nearest neighbors) dari titik data yang akan diprediksi. Tetangga terdekat ini dipilih berdasarkan kesamaan atau jarak antara fitur-fitur data. Metode KNN kemudian menggunakan mayoritas dari label-label tetangga terdekat (untuk klasifikasi) atau rata-rata dari nilai target tetangga terdekat (untuk regresi) sebagai prediksi untuk titik data yang tidak diketahui.</p>
+<p>Proses algoritma KNN dapat dijelaskan dalam beberapa tahap:</p>
+<ol class="arabic simple">
+<li><p>Menentukan parameter K: Parameter K adalah jumlah tetangga terdekat yang akan digunakan dalam proses prediksi. Nilai K harus ditentukan sebelumnya oleh pengguna.</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Menghitung Jarak: Algoritma menghitung jarak antara titik data yang akan diprediksi dengan setiap titik data dalam dataset pelatihan. Jarak ini biasanya dihitung menggunakan metrik jarak seperti Euclidean distance, Manhattan distance, atau Minkowski distance.</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Memilih Tetangga Terdekat: Algoritma memilih K titik data dengan jarak terdekat dengan titik data yang akan diprediksi.</p></li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><p>Menghitung Prediksi: Untuk masalah klasifikasi, algoritma mengambil mayoritas dari label-label tetangga terdekat sebagai prediksi kelas untuk titik data yang tidak diketahui. Untuk regresi, algoritma mengambil rata-rata dari nilai target tetangga terdekat sebagai prediksi.</p></li>
+</ol>
+<p>Algoritma KNN memiliki beberapa kelebihan, seperti sederhana dalam implementasi dan dapat menangani data yang kompleks. Namun, algoritma ini juga memiliki beberapa kelemahan, termasuk sensitif terhadap skala dan dimensi data, serta memerlukan penyimpanan besar untuk dataset besar. Selain itu, KNN cenderung memiliki kinerja yang lebih buruk dibandingkan dengan algoritma lainnya dalam situasi di mana fitur-fitur data tidak memiliki relevansi yang jelas atau ketika ada noise dalam data.</p>
+<section id="mengambil-dataset-dari-database">
+<h2>Mengambil dataset dari database<a class="headerlink" href="#mengambil-dataset-dari-database" title="Link to this heading">#</a></h2>
+</section>
+<section id="mencari-akurasi-data-menggunakan-metode-knn">
+<h2>Mencari akurasi data menggunakan metode KNN<a class="headerlink" href="#mencari-akurasi-data-menggunakan-metode-knn" title="Link to this heading">#</a></h2>
+<p>pada point ini, kita akan mencari akurasi dataset abalone sebelum di modifikasi data outliernya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="c1">#memasukkan data csv</span>
+<span class="n">abalone</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Abalone.csv&quot;</span><span class="p">)</span>
+<span class="n">abalone</span>
+
+<span class="c1">#membaca 5 data teratas</span>
+<span class="n">abalone</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">abalone</span>
+
+<span class="c1">#melihat tipe data yang akan digunakan</span>
+<span class="n">abalone</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">abalone</span>
+
+<span class="c1">#menentukan variabel independen</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">abalone</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;Sex&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1">#menentukan variabel dependen</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">abalone</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span>
+<span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1">#membagi data training dan data testing</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+
+<span class="c1">#mengubah skala data</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="c1">#mengaktifkan fungsi klasifikasi untuk knn</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span> <span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1">#memasukkan data training pada fungsi klasifikasi untuk knn</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 4177 entries, 0 to 4176
+Data columns (total 8 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   Sex             4177 non-null   object 
+ 1   Length          4177 non-null   float64
+ 2   Diameter        4177 non-null   float64
+ 3   Height          4177 non-null   float64
+ 4   Whole_weight    4177 non-null   float64
+ 5   Shucked_weight  4177 non-null   float64
+ 6   Viscera_weight  4177 non-null   float64
+ 7   Shell_weight    4177 non-null   float64
+dtypes: float64(7), object(1)
+memory usage: 261.2+ KB
+</pre></div>
+</div>
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsClassifier(n_neighbors=3)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsClassifier</label><div class="sk-toggleable__content"><pre>KNeighborsClassifier(n_neighbors=3)</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#menentukan prediksi</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span> <span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="n">y_pred</span>
+
+<span class="c1">#menentukan probabilitas prediksi</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="c1">#menampilkan matriks hasil prediksi</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="c1">#ketepatan hasil prediksi</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[128  36 116]
+ [ 43 180  34]
+ [125  57 117]]
+              precision    recall  f1-score   support
+
+           F       0.43      0.46      0.44       280
+           I       0.66      0.70      0.68       257
+           M       0.44      0.39      0.41       299
+
+    accuracy                           0.51       836
+   macro avg       0.51      0.52      0.51       836
+weighted avg       0.50      0.51      0.51       836
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dari hasil code diatas dapat kita lihat matriks hasil prediksi diatas, diperoleh hasil prediksi jenis kelas F terdapat 120 data yang benar diprediksi sebagai kelas F, 32 data yang seharusnya kelas I namun diprediksi sebagai kelas F, dan 125 data yang seharusnya kelas M diprediksi sebagai kelas F. Lalu terdapat 48 data benar diprediksi sebagai kelas I, 194 data yang seharusnya kelas F namun diprediksi sebagai kelas I, dan 36 data yang seharusnya kelas M namun diprediksi sebagai kelas I. Selanjutnya terdapat 117 data yang benar diprediksi sebagai kelas M , 44 data yang seharusnya kelas F diprediksi sebagai kelas M, dan 120 data yang seharusnya kelas I namun diprediksi sebagai kelas M.</p>
+<p>Akurasi data asli abalone untuk pengklasifikasian  berdasarkan weighted avg yaitu rata-rata distribusi setiap kelas secara benar adalah 0.52 atau sekitar 52%. Dengan klasifikasi 836 pengamatan dalam data testing.</p>
+</section>
+<section id="perhitungan-manual-menggunakan-excel">
+<h2>Perhitungan Manual Menggunakan Excel<a class="headerlink" href="#perhitungan-manual-menggunakan-excel" title="Link to this heading">#</a></h2>
+<p>Dari proses memahami data terdapat data outlier. Sehingga akan kita lakukan penghapusan data outlier untuk meningkatkan akurasi data. Untuk mencari data outlier, kita cari terlebih dahulu mean dan std nya</p>
+<img src="image-20240501-223324.png" width="" align="" /><p>setelah itu kita menghitung nilai standarnya dan nilai absolutenya. Dan untuk mengecek apakah data tersebut termasuk outlier atau tidak menggunakan rumus =IF(nilai_absolute&gt;3,”OUTLIER”,”TIDAK”)</p>
+<img src="image-20240501-223408.png" width="" align="" /><p>jika data tersebut outlier maka dilakukan penghapusan.</p>
+<p>setelah mencari data outlier, kemudian kita lakukan perhitungan akurasinya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="c1">#memasukkan data csv</span>
+<span class="n">abalone</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;outlier_abalone.csv&quot;</span><span class="p">)</span>
+<span class="n">abalone</span>
+
+<span class="c1">#membaca 5 data teratas</span>
+<span class="n">abalone</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">abalone</span>
+
+<span class="c1">#melihat tipe data yang akan digunakan</span>
+<span class="n">abalone</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">abalone</span>
+
+<span class="c1">#menentukan variabel independen</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">abalone</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;Sex&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1">#menentukan variabel dependen</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">abalone</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span>
+<span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1">#membagi data training dan data testing</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+
+<span class="c1">#mengubah skala data</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1">#mengaktifkan fungsi klasifikasi untuk knn</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span> <span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1">#memasukkan data training pada fungsi klasifikasi untuk knn</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1">#menentukan prediksi</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span> <span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_pred</span>
+
+<span class="c1">#menentukan probabilitas prediksi</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1">#menampilkan matriks hasil prediksi</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="c1">#ketepatan hasil prediksi</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 4041 entries, 0 to 4040
+Data columns (total 8 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   Sex             4041 non-null   object 
+ 1   Length          4041 non-null   float64
+ 2   Diameter        4041 non-null   float64
+ 3   Height          4041 non-null   float64
+ 4   Whole_weight    4041 non-null   float64
+ 5   Shucked_weight  4041 non-null   float64
+ 6   Viscera_weight  4041 non-null   float64
+ 7   Shell_weight    4041 non-null   float64
+dtypes: float64(7), object(1)
+memory usage: 252.7+ KB
+[[110  40  94]
+ [ 53 171  51]
+ [131  49 110]]
+              precision    recall  f1-score   support
+
+           F       0.37      0.45      0.41       244
+           I       0.66      0.62      0.64       275
+           M       0.43      0.38      0.40       290
+
+    accuracy                           0.48       809
+   macro avg       0.49      0.48      0.48       809
+weighted avg       0.49      0.48      0.49       809
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dari hasil code diatas dapat kita lihat matriks hasil prediksi diatas, diperoleh hasil prediksi jenis kelas F terdapat 143 data yang benar diprediksi sebagai kelas F, 35 data yang seharusnya kelas I namun diprediksi sebagai kelas F, dan 89 data yang seharusnya kelas M diprediksi sebagai kelas F. Lalu terdapat 50 data benar diprediksi sebagai kelas I, 154 data yang seharusnya kelas F namun diprediksi sebagai kelas I, dan 31 data yang seharusnya kelas M namun diprediksi sebagai kelas I. Selanjutnya terdapat 151 data yang benar diprediksi sebagai kelas M , 52 data yang seharusnya kelas F diprediksi sebagai kelas M, dan 104 data yang seharusnya kelas I namun diprediksi sebagai kelas M.</p>
+<p>Sehingga weighted avg menjadi 50% dan akurasi data turun sebanyak 2% dari sebelumnya yang akurasinya 52%.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="naive-bayes">
+<h1>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
+<p>Naive Bayes adalah salah satu algoritma klasifikasi dalam mechine learning yang sangat populer karena sederhana, cepat, dan seringkali memberikan hasil yang baik dalam berbagai tugas klasifikasi. Algoritma Naive Bayes didasarkan pada teorema Bayes yang menggunakan asumsi “naive” atau sederhana, yaitu bahwa semua fitur dalam dataset adalah independen satu sama lain ketika diberikan kelas target.</p>
+<section id="bagi-data-train-80-dan-data-test-20">
+<h2>Bagi data train 80% dan data test 20%<a class="headerlink" href="#bagi-data-train-80-dan-data-test-20" title="Link to this heading">#</a></h2>
+<p>dari code ini kita akan melakukan pembagian data set untuk yang train dan ujicoba yang mana data train adalah 80 % dari total keseluruh data dan untuk yang data set 20 % dari total keseluruhan data</p>
+<section id="data-train">
+<h3>============================= Data Train =============================<a class="headerlink" href="#data-train" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">clean_abalone</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;clean_abalone.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">clean_abalone</span><span class="p">[[</span><span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;Diameter&#39;</span><span class="p">,</span> <span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="s1">&#39;Whole_weight&#39;</span> <span class="p">,</span> <span class="s1">&#39;Shucked_weight&#39;</span><span class="p">,</span> <span class="s1">&#39;Viscera_weight&#39;</span><span class="p">,</span> <span class="s1">&#39;Shell_weight&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">clean_abalone</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]]</span>
+<span class="c1"># Membagi dataset menjadi data latih &amp; data uji</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">trained</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">trained</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Length  Diameter  Height  Whole_weight  Shucked_weight  Viscera_weight  \
+3790   0.645     0.430   0.135        0.8545          0.3210          0.1775   
+3493   0.610     0.475   0.155       10.7350          0.4375          0.2585   
+1871   0.635     0.505   0.155       12.8950          0.5940          0.3140   
+899    0.450     0.335   0.105        0.4470          0.2335          0.1530   
+988    0.645     0.520   0.175        1.6360          0.7790          0.3420   
+...      ...       ...     ...           ...             ...             ...   
+3339   0.610     0.505   0.190        1.4030          0.6715          0.2925   
+3525   0.475     0.350   0.125        0.4225          0.1905          0.0790   
+1467   0.725     0.570   0.180       18.7250          0.9115          0.4270   
+1019   0.245     0.180   0.065        0.0685          0.0245          0.0155   
+766    0.425     0.340   0.135        0.4950          0.1655          0.1170   
+
+      Shell_weight Sex  
+3790        0.2750   F  
+3493        0.3100   F  
+1871        0.3450   F  
+899         0.1190   I  
+988         0.4320   F  
+...            ...  ..  
+3339        0.3650   F  
+3525        0.1355   I  
+1467        0.4460   M  
+1019        0.0225   I  
+766         0.1850   F  
+
+[3232 rows x 8 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-test">
+<h3>============================= Data Test =============================<a class="headerlink" href="#data-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Length  Diameter  Height  Whole_weight  Shucked_weight  Viscera_weight  \
+1562   0.565     0.440   0.125        0.8020          0.3595          0.1825   
+3033   0.550     0.450   0.150        1.0470          0.4315          0.2760   
+3046   0.335     0.490   0.140        1.1940          0.4445          0.2380   
+2986   0.550     0.480   0.150        0.9465          0.4355          0.2605   
+2326   0.520     0.365   0.130        0.4805          0.1905          0.1140   
+...      ...       ...     ...           ...             ...             ...   
+2878   0.555     0.425   0.150        0.8730          0.4625          0.1845   
+2704   0.675     0.540   0.205        1.7400          0.7885          0.3730   
+3940   0.515     0.400   0.140        0.6220          0.2780          0.1455   
+3910   0.580     0.425   0.155        0.8730          0.3615          0.2490   
+3361   0.465     0.355   0.145        0.4485          0.1560          0.1020   
+
+      Shell_weight Sex  
+1562        0.2150   F  
+3033        0.3150   M  
+3046        0.3750   F  
+2986        0.2505   F  
+2326        0.1475   I  
+...            ...  ..  
+2878        0.1965   M  
+2704        0.4865   F  
+3940        0.1690   I  
+3910        0.2390   F  
+3361        0.1230   I  
+
+[809 rows x 8 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2>Perhitungan manual menggunakan Excel<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="menghitung-probabilitas-pada-data-train">
+<h3>Menghitung probabilitas pada data train<a class="headerlink" href="#menghitung-probabilitas-pada-data-train" title="Link to this heading">#</a></h3>
+<p>dilakukan perhitungan probabilitas dari masing-masing kelas sesuai dengan jumlah data train pada kelas tersebut kemudian dibagi dengan banyaknya total data train</p>
+<p>P(a) : probabilitas
+n(a) : banyaknya record data train pada suatu kelas</p>
+<img src="image-20240501-214054.png" width="" align="" /></section>
+<section id="menghitung-mean-dan-standard-deviasi">
+<h3>Menghitung mean dan standard deviasi<a class="headerlink" href="#menghitung-mean-dan-standard-deviasi" title="Link to this heading">#</a></h3>
+<p>menghitung mean dan standart devisiasi dari masing-masing fitur pada setiap kelas di data train.
+untuk rumus di excel sebagai berikut :</p>
+<p>mean : =AVERAGE()
+standard devisiasi : =STDEV.P()</p>
+<img src="image-20240501-214422.png" width="" align="" /><img src="image-20240501-214458.png" width="" align="" /><img src="image-20240501-214517.png" width="" align="" /></section>
+<section id="menentukan-inputan-x">
+<h3>Menentukan Inputan (X)<a class="headerlink" href="#menentukan-inputan-x" title="Link to this heading">#</a></h3>
+<p>Dapatkan inputan untuk tiap fitur disetiap kelas secara acak</p>
+<img src="image-20240502-093545.png" width="" align="" /></section>
+<section id="menghitung-distribusi-gaussian">
+<h3>Menghitung distribusi gaussian<a class="headerlink" href="#menghitung-distribusi-gaussian" title="Link to this heading">#</a></h3>
+<p>Setelah didapati mean dan standart devisiasi dari setiap fitur pada setiap kelas, dan juga sudah menentukan inputan. maka langkah selanjutnya adalah memasukkan ke dalam rumus distribusi gaussian setiap fitur disetiap kelasnya.</p>
+<p>rumusnya sebagai berikut :</p>
+<img src="image-20240516-094845.png" width="" align="" /><img src="image-20240501-215002.png" width="" align="" /><img src="image-20240501-215029.png" width="" align="" /><img src="image-20240501-215051.png" width="" align="" /></section>
+<section id="menghitung-posteriori">
+<h3>Menghitung posteriori<a class="headerlink" href="#menghitung-posteriori" title="Link to this heading">#</a></h3>
+<p>Setelah didapat semua hasil dari distribusi gaussian, langkah selanjutnya adalah menentukan posteriori-nya.</p>
+<p>Dimana :</p>
+<ul class="simple">
+<li><p>P(A|H) : hasil perkalian setiap fitur pada setiap kelas</p></li>
+</ul>
+<ul class="simple">
+<li><p>P(a) : probabilitas setiap kelas</p></li>
+</ul>
+<img src="image-20240501-215230.png" width="" align="" /></section>
+<section id="menentukan-maximum-posteriori">
+<h3>Menentukan maximum posteriori<a class="headerlink" href="#menentukan-maximum-posteriori" title="Link to this heading">#</a></h3>
+<p>Setelah mendapati nilai postriori maka kita dapat menentukan nilai maximum pada posteriori yaitu pada kelas I dengan nilai : 1,08453E-11</p>
+</section>
+</section>
+<section id="perhitungan-menggunakan-scikit-learn">
+<h2>Perhitungan menggunakan Scikit Learn<a class="headerlink" href="#perhitungan-menggunakan-scikit-learn" title="Link to this heading">#</a></h2>
+<section id="menghitung-akurasi-data">
+<h3>Menghitung Akurasi data<a class="headerlink" href="#menghitung-akurasi-data" title="Link to this heading">#</a></h3>
+<p>pada bagian ini, kita menghitung akurasi data dengan model gaussian</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#membuat model gaussian</span>
+<span class="n">gnb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1">#melatih model dengan data train</span>
+<span class="n">gnb_model</span> <span class="o">=</span> <span class="n">gnb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1">#evaluasi model</span>
+<span class="n">y_predict</span> <span class="o">=</span> <span class="n">gnb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_predict</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy:  0.493
+/usr/local/lib/python3.9/site-packages/sklearn/utils/validation.py:1111: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>dari code diatas didapatkan accuracy sebesar 0.516 atau 51.6%</p>
+</section>
+<section id="menghitung-posteriori-maksimal">
+<h3>Menghitung Posteriori maksimal<a class="headerlink" href="#menghitung-posteriori-maksimal" title="Link to this heading">#</a></h3>
+<p>Inputan (X) akan diuji sbeagai berikut:</p>
+<ul class="simple">
+<li><p>Length = 0.21</p></li>
+</ul>
+<ul class="simple">
+<li><p>Diameter = 0.15</p></li>
+</ul>
+<ul class="simple">
+<li><p>Height = 0.055</p></li>
+</ul>
+<ul class="simple">
+<li><p>Whole_weight = 0.0456</p></li>
+</ul>
+<ul class="simple">
+<li><p>Shucked_weight = 0.017</p></li>
+</ul>
+<ul class="simple">
+<li><p>Viscera_weight = 0.012</p></li>
+</ul>
+<ul class="simple">
+<li><p>Shell_weight = 0.015</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gnb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">0.21</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.055</span><span class="p">,</span> <span class="mf">0.0456</span><span class="p">,</span> <span class="mf">0.017</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">]]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;I&#39;]
+/usr/local/lib/python3.9/site-packages/sklearn/base.py:450: UserWarning: X does not have valid feature names, but GaussianNB was fitted with feature names
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<p>maka Posteriori maksimal berada pada class I (infrant)</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="stacking-classifier">
+<h1>Stacking Classifier<a class="headerlink" href="#stacking-classifier" title="Link to this heading">#</a></h1>
+<img src="image-20240612-142804.png" width="" align="" /><p>Stacking melibatkan penggabungan beberapa model berbeda dan menggunakan model yang lebih tinggi (meta-model) untuk menggabungkan hasil prediksi dari model-model tersebut. Stacking memungkinkan untuk memanfaatkan kekuatan berbagai jenis model.</p>
+<p>Mencoba menggunakan stacking classifier menggunakan KNN dan meta-classifier menggunakan GNB</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span> 
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="classifier-menggunakan-knn">
+<h2>Classifier Menggunakan KNN<a class="headerlink" href="#classifier-menggunakan-knn" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Length  Diameter  Height  Whole_weight  Shucked_weight  Viscera_weight  \
+3790   0.645     0.430   0.135        0.8545          0.3210          0.1775   
+3493   0.610     0.475   0.155       10.7350          0.4375          0.2585   
+1871   0.635     0.505   0.155       12.8950          0.5940          0.3140   
+899    0.450     0.335   0.105        0.4470          0.2335          0.1530   
+988    0.645     0.520   0.175        1.6360          0.7790          0.3420   
+...      ...       ...     ...           ...             ...             ...   
+3339   0.610     0.505   0.190        1.4030          0.6715          0.2925   
+3525   0.475     0.350   0.125        0.4225          0.1905          0.0790   
+1467   0.725     0.570   0.180       18.7250          0.9115          0.4270   
+1019   0.245     0.180   0.065        0.0685          0.0245          0.0155   
+766    0.425     0.340   0.135        0.4950          0.1655          0.1170   
+
+      Shell_weight  
+3790        0.2750  
+3493        0.3100  
+1871        0.3450  
+899         0.1190  
+988         0.4320  
+...            ...  
+3339        0.3650  
+3525        0.1355  
+1467        0.4460  
+1019        0.0225  
+766         0.1850  
+
+[3232 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Sex
+3790   F
+3493   F
+1871   F
+899    I
+988    F
+...   ..
+3339   F
+3525   I
+1467   M
+1019   I
+766    F
+
+[3232 rows x 1 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ubah class pada y_train yang awalnya berupa huruf menjadi angka</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Sex
+3790   1
+3493   1
+1871   1
+899    2
+988    1
+...   ..
+3339   1
+3525   2
+1467   0
+1019   2
+766    1
+
+[3232 rows x 1 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Length  Diameter  Height  Whole_weight  Shucked_weight  Viscera_weight  \
+1562   0.565     0.440   0.125        0.8020          0.3595          0.1825   
+3033   0.550     0.450   0.150        1.0470          0.4315          0.2760   
+3046   0.335     0.490   0.140        1.1940          0.4445          0.2380   
+2986   0.550     0.480   0.150        0.9465          0.4355          0.2605   
+2326   0.520     0.365   0.130        0.4805          0.1905          0.1140   
+...      ...       ...     ...           ...             ...             ...   
+2878   0.555     0.425   0.150        0.8730          0.4625          0.1845   
+2704   0.675     0.540   0.205        1.7400          0.7885          0.3730   
+3940   0.515     0.400   0.140        0.6220          0.2780          0.1455   
+3910   0.580     0.425   0.155        0.8730          0.3615          0.2490   
+3361   0.465     0.355   0.145        0.4485          0.1560          0.1020   
+
+      Shell_weight  
+1562        0.2150  
+3033        0.3150  
+3046        0.3750  
+2986        0.2505  
+2326        0.1475  
+...            ...  
+2878        0.1965  
+2704        0.4865  
+3940        0.1690  
+3910        0.2390  
+3361        0.1230  
+
+[809 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Sex
+1562   F
+3033   M
+3046   F
+2986   F
+2326   I
+...   ..
+2878   M
+2704   F
+3940   I
+3910   F
+3361   I
+
+[809 rows x 1 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ubah class pada y_test yang awalnya berupa huruf menjadi angka</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Sex
+1562   1
+3033   0
+3046   1
+2986   1
+2326   2
+...   ..
+2878   0
+2704   1
+3940   2
+3910   1
+3361   2
+
+[809 rows x 1 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="model-knn-dengan-n-neighbor-3">
+<h3>Model KNN dengan n_neighbor=3<a class="headerlink" href="#model-knn-dengan-n-neighbor-3" title="Link to this heading">#</a></h3>
+<p>membuat classifier 1 menggunakan knn dengan n_neighbor = 3 dan mendapatkan hasil prediksi train dan test</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inisialisasi dan pelatihan model</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">c1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data pelatihan</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="n">p1_test</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">p1_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.9/site-packages/sklearn/neighbors/_classification.py:207: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
+  return self._fit(X, y)
+[&#39;1&#39; &#39;0&#39; &#39;0&#39; ... &#39;0&#39; &#39;2&#39; &#39;1&#39;]
+[&#39;1&#39; &#39;0&#39; &#39;0&#39; ... &#39;0&#39; &#39;2&#39; &#39;1&#39;]
+[&#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39;
+ &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39;
+ &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;
+ &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39;
+ &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39;
+ &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39;
+ &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39;
+ &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39;
+ &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39;
+ &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39;
+ &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39;
+ &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39;
+ &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39;
+ &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39;
+ &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;
+ &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39;
+ &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39;
+ &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Model KNN dengan k=3:
+Latih model KNN pertama pada data pelatihan dengan k=3.
+Gunakan model ini untuk membuat prediksi pada data validasi.</p>
+</section>
+<section id="model-knn-dengan-n-neighbor-5">
+<h3>Model KNN dengan n_neighbor=5<a class="headerlink" href="#model-knn-dengan-n-neighbor-5" title="Link to this heading">#</a></h3>
+<p>membuat classifier 2 menggunakan knn dengan n_neighbor = 5 dan mendapatkan hasil prediksi train dan test</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inisialisasi dan pelatihan model</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data pelatihan</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">p2_test</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">p2_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.9/site-packages/sklearn/neighbors/_classification.py:207: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
+  return self._fit(X, y)
+[&#39;1&#39; &#39;0&#39; &#39;0&#39; ... &#39;0&#39; &#39;2&#39; &#39;1&#39;]
+[&#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39;
+ &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39;
+ &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;
+ &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39;
+ &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39;
+ &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39;
+ &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39;
+ &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39;
+ &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39;
+ &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39;
+ &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39;
+ &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39;
+ &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39;
+ &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;1&#39;
+ &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39;
+ &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39;
+ &#39;2&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;
+ &#39;0&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39;
+ &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39;
+ &#39;0&#39; &#39;1&#39; &#39;0&#39; &#39;2&#39; &#39;1&#39; &#39;1&#39; &#39;1&#39; &#39;2&#39; &#39;0&#39; &#39;1&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;0&#39;
+ &#39;0&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;1&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;2&#39; &#39;2&#39; &#39;0&#39; &#39;0&#39; &#39;2&#39; &#39;0&#39; &#39;2&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Model KNN dengan k=5:
+Latih model KNN kedua pada data pelatihan dengan k=5.
+Gunakan model ini untuk membuat prediksi pada data validasi.</p>
+</section>
+</section>
+<section id="meta-classifier-menggunakan-gaussian-naive-bayes">
+<h2>Meta-Classifier Menggunakan Gaussian Naive Bayes<a class="headerlink" href="#meta-classifier-menggunakan-gaussian-naive-bayes" title="Link to this heading">#</a></h2>
+<p>mendapatkan akurasi dari penggunaan stacking classifier</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menggabungkan prediksi dari kedua model KNN sebagai fitur baru</span>
+<span class="n">f_meta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">))</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">p1_test</span><span class="p">,</span> <span class="n">p2_test</span><span class="p">))</span>
+
+<span class="c1"># Inisialisasi dan pelatihan meta-classifier Naive Bayes</span>
+<span class="n">meta_classifier</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">meta_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">f_meta</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">predict</span> <span class="o">=</span> <span class="n">meta_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">predict</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Akurasi : </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi : 52.53%
+/usr/local/lib/python3.9/site-packages/sklearn/utils/validation.py:1111: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Membuat Prediksi Akhir:</p>
+<p>Untuk membuat prediksi pada data uji (test set), lakukan langkah berikut:
+Gunakan kedua model KNN (k=3 dan k=5) yang sudah dilatih untuk membuat prediksi pada data uji.
+Gunakan prediksi ini sebagai input untuk model Naive Bayes yang sudah dilatih.
+Model Naive Bayes akan memberikan prediksi akhir berdasarkan input tersebut.</p>
+<p>didapat hasil akurasi dari penggunaan stacking classifier</p>
+<section id="memakai-data-baru">
+<h3>Memakai Data Baru<a class="headerlink" href="#memakai-data-baru" title="Link to this heading">#</a></h3>
+<p>mencoba memakai data buatan yang telah disesuaikan dengan dataframe</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Membuat DataFrame dengan data yang diberikan</span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Length&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.680</span><span class="p">,</span> <span class="mf">0.590</span><span class="p">,</span> <span class="mf">0.265</span><span class="p">],</span>
+    <span class="s1">&#39;Diameter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.580</span><span class="p">,</span> <span class="mf">0.465</span><span class="p">,</span> <span class="mf">0.210</span><span class="p">],</span>
+    <span class="s1">&#39;Height&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.200</span><span class="p">,</span> <span class="mf">0.140</span><span class="p">,</span> <span class="mf">0.060</span><span class="p">],</span>
+    <span class="s1">&#39;Whole_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.7870</span><span class="p">,</span> <span class="mf">1.0460</span><span class="p">,</span> <span class="mf">0.0965</span><span class="p">],</span>
+    <span class="s1">&#39;Shucked_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5850</span><span class="p">,</span> <span class="mf">0.4695</span><span class="p">,</span> <span class="mf">0.0425</span><span class="p">],</span>
+    <span class="s1">&#39;Viscera_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4530</span><span class="p">,</span> <span class="mf">0.2630</span><span class="p">,</span> <span class="mf">0.0220</span><span class="p">],</span>
+    <span class="s1">&#39;Shell_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6000</span><span class="p">,</span> <span class="mf">0.2630</span><span class="p">,</span> <span class="mf">0.0300</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">372</span><span class="p">,</span> <span class="mi">2592</span><span class="p">,</span> <span class="mi">320</span><span class="p">])</span>
+
+<span class="c1"># Menampilkan DataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DataFrame:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># Mengonversi DataFrame ke array numpy</span>
+<span class="n">array_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># Data latih (menggunakan array_data sebagai f_meta)</span>
+<span class="n">f_meta</span> <span class="o">=</span> <span class="n">array_data</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Label latih contoh</span>
+
+<span class="c1"># Data uji (menggunakan salah satu baris dari array_data)</span>
+<span class="n">data_test</span> <span class="o">=</span> <span class="n">array_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Mengambil baris pertama sebagai data uji</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Label uji yang diharapkan sesuai dengan baris pertama</span>
+
+<span class="c1"># Melatih meta-classifier Naive Bayes</span>
+<span class="n">meta_classifier_new</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">meta_classifier_new</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">f_meta</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Membuat prediksi</span>
+<span class="n">predict</span> <span class="o">=</span> <span class="n">meta_classifier_new</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_test</span><span class="p">)</span>
+
+<span class="c1"># Menghitung akurasi</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Akurasi : </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DataFrame:
+      Length  Diameter  Height  Whole_weight  Shucked_weight  Viscera_weight  \
+372    0.680     0.580    0.20        1.7870          0.5850           0.453   
+2592   0.590     0.465    0.14        1.0460          0.4695           0.263   
+320    0.265     0.210    0.06        0.0965          0.0425           0.022   
+
+      Shell_weight  
+372          0.600  
+2592         0.263  
+320          0.030  
+Akurasi : 100.00%
+</pre></div>
+</div>
+</div>
+</div>
+<p>dari dataframe buatan, didapat akurasi 100% menggunakan meta-classifier GNB tadi</p>
+</section>
+</section>
+<section id="bagging-bootstrap-aggregating">
+<h2>Bagging (Bootstrap Aggregating)<a class="headerlink" href="#bagging-bootstrap-aggregating" title="Link to this heading">#</a></h2>
+<p>Bagging adalah teknik yang melibatkan pembuatan beberapa subset dari data pelatihan dengan penggantian (metode bootstrap), kemudian melatih model yang berbeda pada setiap subset tersebut. Setelah itu, hasil prediksi dari masing-masing model ini digabungkan; untuk tugas regresi, hasil prediksi diambil rata-ratanya, sedangkan untuk tugas klasifikasi, hasil prediksi diambil berdasarkan mayoritas suara. Metode ini membantu mengurangi variabilitas dan meningkatkan akurasi prediksi.</p>
+<img src="image-20240612-143258.png" width="" align="" /><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># Added</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Suppress the DataConversionWarning</span>
+<span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <span class="n">DataConversionWarning</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">DataConversionWarning</span><span class="p">)</span>
+
+<span class="c1"># Split the dataset into training (80%) and testing (20%)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">akurasi</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_est</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Loop over n_estimators from 3 to 20</span>
+<span class="k">for</span> <span class="n">n_estimator</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">21</span><span class="p">):</span>
+    <span class="c1"># Initialize and fit the BaggingClassifier with GaussianNB as the base estimator</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="n">GaussianNB</span><span class="p">(),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimator</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    
+    <span class="c1"># Predict the labels for the test set</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate and print the accuracy</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">akurasi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">n_est</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_estimator</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_estimators: </span><span class="si">{</span><span class="n">n_estimator</span><span class="si">}</span><span class="s2">, Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plotting the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_est</span><span class="p">,</span> <span class="n">akurasi</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Accuracy vs. Number of Estimators&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Estimators&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n_estimators: 3, Accuracy: 0.49
+n_estimators: 4, Accuracy: 0.50
+n_estimators: 5, Accuracy: 0.51
+n_estimators: 6, Accuracy: 0.50
+n_estimators: 7, Accuracy: 0.50
+n_estimators: 8, Accuracy: 0.50
+n_estimators: 9, Accuracy: 0.50
+n_estimators: 10, Accuracy: 0.50
+n_estimators: 11, Accuracy: 0.50
+n_estimators: 12, Accuracy: 0.50
+n_estimators: 13, Accuracy: 0.50
+n_estimators: 14, Accuracy: 0.50
+n_estimators: 15, Accuracy: 0.50
+n_estimators: 16, Accuracy: 0.50
+n_estimators: 17, Accuracy: 0.49
+n_estimators: 18, Accuracy: 0.49
+n_estimators: 19, Accuracy: 0.49
+n_estimators: 20, Accuracy: 0.49
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/145d9ddffc57b84d7871cede7349adcc0aea6c3200c461fb8887be574c38797c.png"><img alt="_images/145d9ddffc57b84d7871cede7349adcc0aea6c3200c461fb8887be574c38797c.png" src="_images/145d9ddffc57b84d7871cede7349adcc0aea6c3200c461fb8887be574c38797c.png" style="width: 593px; height: 455px;" /></a>
+</div>
+</div>
+<p>Program ini menghasilkan berbagai nilai akurasi untuk n_estimators dari 3 hingga 20.
+Hasil akurasi berkisar antara 0.49 dan 0.51, dengan nilai akurasi tidak banyak berubah seiring bertambahnya jumlah estimator.
+Grafik yang dihasilkan menunjukkan hubungan antara jumlah estimator dan akurasi.</p>
+<p>================================================== END =================================================</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="notebooks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Content with notebooks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="markdown-notebooks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Notebooks with MyST Markdown</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">STUDI KASUS DATA FRAME ABALONE</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-dari-studi-kasus">Tujuan dari studi kasus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-kerang-abalone">Apa itu Kerang Abalone</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-data-mengumpulkan-data">Collecting Data (Mengumpulkan data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-tiap-fitur-dalam-dataset-abalone">Tipe data tiap fitur dalam dataset Abalone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-kualitas-data">Identifikasi kualitas data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-missing-values">Identifikasi Missing Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-outlier">Identifikasi Outlier</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preproccessing">Preproccessing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-setiap-fitur-pada-dataset-abalone">Penjelasan setiap fitur pada dataset Abalone</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi">Klasifikasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jumlah-data-pada-dataset-abalone">Jumlah data pada dataset Abalone</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#knn">KNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dataset-dari-database">Mengambil dataset dari database</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-akurasi-data-menggunakan-metode-knn">Mencari akurasi data menggunakan metode KNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-menggunakan-excel">Perhitungan Manual Menggunakan Excel</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagi-data-train-80-dan-data-test-20">Bagi data train 80% dan data test 20%</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-train">============================= Data Train =============================</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-test">============================= Data Test =============================</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Perhitungan manual menggunakan Excel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-probabilitas-pada-data-train">Menghitung probabilitas pada data train</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-mean-dan-standard-deviasi">Menghitung mean dan standard deviasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-inputan-x">Menentukan Inputan (X)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-distribusi-gaussian">Menghitung distribusi gaussian</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-posteriori">Menghitung posteriori</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-maximum-posteriori">Menentukan maximum posteriori</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-menggunakan-scikit-learn">Perhitungan menggunakan Scikit Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-akurasi-data">Menghitung Akurasi data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-posteriori-maksimal">Menghitung Posteriori maksimal</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-classifier">Stacking Classifier</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-menggunakan-knn">Classifier Menggunakan KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-knn-dengan-n-neighbor-3">Model KNN dengan n_neighbor=3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-knn-dengan-n-neighbor-5">Model KNN dengan n_neighbor=5</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meta-classifier-menggunakan-gaussian-naive-bayes">Meta-Classifier Menggunakan Gaussian Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memakai-data-baru">Memakai Data Baru</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging-bootstrap-aggregating">Bagging (Bootstrap Aggregating)</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
